@@ -1,0 +1,189 @@
+.row>div{
+	margin-bottom: 30px;
+}
+
+body {
+    font-family: 'Raleway', sans-serif;
+    font-weight: normal;
+    font-style: normal;
+    font-size: 14px;
+}
+.single-lecturers {
+    overflow: hidden;
+    position: relative;
+}
+
+.lecturers-img {
+    overflow: hidden;
+    position: relative;
+}
+a, button, input {
+    outline: medium none;
+    color: #fff;
+}
+a, .btn {
+    -webkit-transition: all 0.3s ease-out 0s;
+    -moz-transition: all 0.3s ease-out 0s;
+    -ms-transition: all 0.3s ease-out 0s;
+    -o-transition: all 0.3s ease-out 0s;
+    transition: all 0.3s ease-out 0s;
+}
+.lecturers-img > a::before {
+    background: #2d3e50 none repeat scroll 0 0;
+    content: "";
+    opacity: 0.8;
+    position: absolute;
+    transition: all 0.3s ease 0s;
+    width: 0;
+    height: 0;
+    left: 0;
+    top: 0;
+    right: 0;
+    bottom: 0;
+    margin: auto;
+}
+
+.lecturers-area .img-title {
+    opacity: 1;
+    transition: all .3s ease 0s;
+    background-color: rgba(45, 62, 80, 0.8);
+}
+
+.img-title {
+    bottom: 0;
+    left: 50%;
+    opacity: 0.8;
+    overflow: hidden;
+    padding: 11px 0 6px;
+    position: absolute;
+    text-align: center;
+    transform: translateX(-50%);
+    width: 100%;
+}
+.img-title > h3, .lecturers-details > h3 {
+    font-size: 18px;
+    font-weight: 500;
+    margin-bottom: 0;
+    color: #fff;
+}
+h1, h2, h3, h4, h5, h6 {
+    font-family: 'Raleway', sans-serif;
+    font-weight: normal;
+    color: #3f3f3f;
+    margin-top: 0px;
+    font-style: normal;
+    font-weight: 400;
+}
+.lecturers-area .img-title > p {
+    color: #fff;
+    margin-bottom: 0;
+}
+p {
+    font-family: 'Lato', sans-serif;
+    font-weight: normal;
+    color: #666666;
+    font-size: 14px;
+    line-height: 24px;
+    margin-bottom: 15px;
+}
+.lecturers-details {
+    left: 0;
+    position: absolute;
+    right: 0;
+    text-align: center;
+    top: 50%;
+    transform: translateY(-50%);
+    width: 100%;
+    opacity: 0;
+    transition: all .3s ease 0s;
+}
+
+.last-about-details {
+    display: inline-block;
+    margin: 23px 0 19px;
+    text-align: center;
+}
+ul {
+    margin: 0px;
+    padding: 0px;
+}
+.lecturers-details li {
+    background-color: transparent;
+    border: 1px solid #fff;
+    float: left;
+    margin-right: 17px;
+    transition: all 0.3s ease 0s;
+}
+li {
+    list-style: none;
+}
+.lecturers-details a {
+    color: #fff;
+    font-size: 14px;
+    display: inline-block;
+    width: 30px;
+    height: 30px;
+    text-align: center;
+    line-height: 30px;
+}
+a, button, input {
+    outline: medium none;
+    color: #fff;
+}
+.icofont {
+    font-family: 'IcoFont' !important;
+    speak: none;
+    font-style: normal;
+    font-weight: normal;
+    font-variant: normal;
+    text-transform: none;
+    line-height: 1;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+}
+element.style {
+}
+.lecturers-details > p {
+	padding: 10px;
+    color: #fff;
+    margin-bottom: 0;
+}
+p {
+    font-family: 'Lato', sans-serif;
+    font-weight: normal;
+    color: #666666;
+    font-size: 14px;
+    line-height: 24px;
+    margin-bottom: 15px;
+}
+img{
+	width: 100%;
+}
+
+
+.single-lecturers:hover .img-title {
+    opacity: 0;
+}
+.lecturers-img > a::before {
+    background: #2d3e50 none repeat scroll 0 0;
+    content: "";
+    opacity: 0.8;
+    position: absolute;
+    transition: all 0.3s ease 0s;
+    width: 0;
+    height: 0;
+    left: 0;
+    top: 0;
+    right: 0;
+    bottom: 0;
+    margin: auto;
+}
+.single-lecturers:hover .lecturers-img a::before {
+    height: 100%;
+    width: 100%;
+}
+
+.single-lecturers:hover .lecturers-details {
+    opacity: 1;
+}
+

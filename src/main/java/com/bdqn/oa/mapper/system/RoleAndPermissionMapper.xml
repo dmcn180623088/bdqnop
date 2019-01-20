@@ -1,0 +1,59 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.bdqn.oa.mapper.system.RoleAndPermissionMapper">
+  <resultMap id="BaseResultMap" type="com.bdqn.oa.pojo.system.RoleAndPermissionKey">
+    <id column="role_id" jdbcType="INTEGER" property="roleId" />
+    <id column="permission_id" jdbcType="INTEGER" property="permissionId" />
+    <id column="id" jdbcType="INTEGER" property="id" />
+  </resultMap>
+  <delete id="deleteByPrimaryKey" parameterType="com.bdqn.oa.pojo.system.RoleAndPermissionKey">
+    delete from role_permission
+    where role_id = #{roleId,jdbcType=INTEGER}
+      and permission_id = #{permissionId,jdbcType=INTEGER}
+      and id = #{id,jdbcType=INTEGER}
+  </delete>
+  
+    <!-- 保存角色相关: 通过角色id删除实体信息 -->
+  <delete id="delectByRoleId">
+    delete from role_permission
+    where role_id = #{roleId,jdbcType=INTEGER}
+  </delete>
+  
+  <select id="getPermissionIdsByRoleId" resultMap="BaseResultMap">
+  	select permission_id
+  	from role_permission
+  	where role_id = #{id,jdbcType=INTEGER}
+  </select>
+  
+  <insert id="insert" parameterType="com.bdqn.oa.pojo.system.RoleAndPermissionKey">
+    insert into role_permission (role_id, permission_id, id
+      )
+    values (#{roleId,jdbcType=INTEGER}, #{permissionId,jdbcType=INTEGER}, #{id,jdbcType=INTEGER}
+      )
+  </insert>
+  <insert id="insertSelective" parameterType="com.bdqn.oa.pojo.system.RoleAndPermissionKey">
+    insert into role_permission
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="roleId != null">
+        role_id,
+      </if>
+      <if test="permissionId != null">
+        permission_id,
+      </if>
+      <if test="id != null">
+        id,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="roleId != null">
+        #{roleId,jdbcType=INTEGER},
+      </if>
+      <if test="permissionId != null">
+        #{permissionId,jdbcType=INTEGER},
+      </if>
+      <if test="id != null">
+        #{id,jdbcType=INTEGER},
+      </if>
+    </trim>
+  </insert>
+</mapper>

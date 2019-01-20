@@ -1,0 +1,119 @@
+
+@charset "utf8";
+
+
+/*滑块*/
+.form-inline{
+	position: relative;
+	display: block;
+}
+.form-inline + .form-inline{
+	margin-top: 10px;
+}
+.form-inline > div{
+	height: 40px;
+	line-height: 40px;
+}
+.form-inline-font{
+	position: absolute;
+	left: 0;
+	padding-right: 10px;
+	font-family: "Arial";
+	font-size: 15px;
+	text-align: right;
+}
+.form-inline-input{
+	border: 1px solid #69696D;
+	text-shadow: 1px 1px 1px black;
+    background: rgba(0, 0, 0, 0.16);
+    border-radius: 5px;
+	outline: none;
+	box-shadow: inset 0 1px 4px rgba(0, 0, 0, 0.3), 0 1px rgba(255, 255, 255, 0.06);
+}
+.form-inline-input input,
+.code-box{
+	padding: 0 10px;
+    width: 80%
+    height: 40px;
+    color: #fff;
+    text-shadow: 1px 1px 1px black;
+    background: rgba(0, 0, 0, 0.16);
+
+    border-radius: 5px;
+	outline: none;
+	box-shadow: inset 0 1px 4px rgba(0, 0, 0, 0.3), 0 1px rgba(255, 255, 255, 0.06);
+}
+
+
+.code-box{
+	position: relative;
+}
+.code-box p,
+.code-box span{
+	display:block;
+	position: absolute;
+	left: 0;
+	height: 40px;
+	text-align: center;
+	line-height: 40px;
+	border-radius: 5px;
+}
+.code-box span{
+	width: 40px;
+	background-color:#fff;
+	font-family: "宋体";
+	font-size: 16px;
+	cursor: pointer;
+}
+.code-box p{
+	width: 0;
+	background-color: #FFFF99;
+	overflow: hidden;
+	text-indent: -20px;
+	transition: background 1s ease-in;
+}
+.code-box .code-input{
+	display: none;
+}
+
+.layui-form-item{
+	padding: 0px;
+}
+
+#LAY-user-login-username,#LAY-user-login-password,#LAY-user-login-vercode{	
+	background: rgba(0, 0, 0, 0.16);
+	padding-left: 30px;
+	 border-radius: 5px;
+}
+
+#layui-btn-fluid{
+	 border-radius: 5px;
+}
+.layui-icon{
+	position: relative;
+	top: 28px;
+	left: 10px;
+	color: #666666;
+}
+#LAY-user-get-vercode{
+	position: relative;
+	top: 18px;
+	display: none;
+}
+#wang-pws{
+	position: relative;
+	top: 8px;
+	left: 150px;
+	color: #029789;
+}
+
+.san-fang{
+	position: inherit;
+	font-size: 25px;
+}
+
+#wang-pws:hover{
+	color:#01AAED;
+}
+
+

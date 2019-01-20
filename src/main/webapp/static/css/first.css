@@ -1,0 +1,120 @@
+*{
+
+}
+#body-cs{
+	width: auto;
+	margin: 0 auto;
+}
+/*闂冨弶顒涙繅宀勬*/
+body:after{
+			content: '';
+			display: block;
+			clear: both;
+			}
+#body-cs:after{
+				content: '';
+				display: block;
+				clear: both;
+			}
+#top-head:after{
+			content: '';
+			display: block;
+			clear: both;
+			}
+			
+						
+
+/*缁涙棃顣介崡锟�*/
+#exam-card{
+	position: fixed;
+	float: left;
+	width: 180px;
+
+}
+.time>.f14{
+	font-size:15px ;
+	text-align: center;
+}
+#putIn{
+	display: block;
+	width: 100%;
+	height: 50px;
+	margin-top: 10px;
+	background-color: 094670;
+	font-size: 16px;
+	color: white;
+	text-align: center;
+	line-height: 50px;
+}
+#fixed{
+	width:300px;
+	position: absolute;
+	top: 20px;
+	right:20px;
+	
+}
+
+/*閼板啳鐦拠鏇㈩暯*/
+.yui3-u-4-5{
+	width: 100%;
+}
+
+.yui3-u-4-5 *{
+	
+}
+
+#top-head{
+	padding: 10px 0 10px 0;
+	border-top:1px solid #eeeeee;
+	border-bottom:1px solid #eeeeee;
+}
+#top-head .sub-top-title{
+	font-size:15px;
+	text-align:left;
+}
+#top-head .randomOption{
+	float: right;
+	text-align:right;
+}
+
+.yui3-u-4-5>.sec{
+	margin: 20px 0 0 0;
+	position: relative;
+	border:1px solid #eeeeee;
+	border-radius:12.5px ;
+	
+}
+.yui3-u-4-5>.sec>.font-yahei{
+	position: absolute;
+	top: 0px;
+	left: 0px;
+	width: 25px;
+	height: 25px;
+	margin: 10px 0 0 10px;
+	border-radius:12.5px ;
+	background-color: #2F4056;
+	line-height: 25px;
+	text-align: center;
+	font-size: 20px;
+	color: white;
+}
+
+.yui3-u-4-5>.sec div:nth-of-type(1){
+	border-radius:12.5px 12.5px  0  0 ;
+	background: #F9F9F9;
+}
+.yui3-u-4-5>.sec div:nth-of-type(1) pre{
+	width: 86%;
+	margin: 0 auto;
+	padding: 20px 0 20px 0;
+}
+.yui3-u-4-5>.sec div:nth-of-type(1) p{
+	margin-bottom: 20px;
+}
+.yui3-u-4-5>.sec>ul{
+	margin: 0px 40px 15px 40px;
+}
+.yui3-u-4-5 li{
+	margin-top: 20px;
+}
+

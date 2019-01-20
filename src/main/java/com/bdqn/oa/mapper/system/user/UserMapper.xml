@@ -1,0 +1,423 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.bdqn.oa.mapper.system.user.UserMapper">
+  <resultMap id="BaseResultMap" type="com.bdqn.oa.pojo.system.user.User">
+    <id column="id" jdbcType="INTEGER" property="id" />
+    <result column="username" jdbcType="VARCHAR" property="username" />
+    <result column="password" jdbcType="VARCHAR" property="password" />
+    <result column="salt" jdbcType="VARCHAR" property="salt" />
+    <result column="nick_name" jdbcType="VARCHAR" property="nickName" />
+    <result column="cord" jdbcType="VARCHAR" property="cord" />
+    <result column="telephone_a" jdbcType="VARCHAR" property="telephoneA" />
+    <result column="telephone_b" jdbcType="VARCHAR" property="telephoneB" />
+    <result column="email" jdbcType="VARCHAR" property="email" />
+    <result column="birthday" jdbcType="TIMESTAMP" property="birthday" />
+    <result column="identity" jdbcType="VARCHAR" property="identity" />
+    <result column="level" jdbcType="VARCHAR" property="level" />
+    <result column="prohibition" jdbcType="VARCHAR" property="prohibition" />
+    <result column="status" jdbcType="VARCHAR" property="status" />
+    <result column="create_user" jdbcType="VARCHAR" property="createUser" />
+    <result column="create_time" jdbcType="TIMESTAMP" property="createTime" />
+    <result column="modify_user" jdbcType="VARCHAR" property="modifyUser" />
+    <result column="modify_time" jdbcType="TIMESTAMP" property="modifyTime" />
+    <result column="description" jdbcType="VARCHAR" property="description" />
+    <result column="address" jdbcType="VARCHAR" property="address" />
+    <result column="sex" jdbcType="VARCHAR" property="sex" />
+    <result column="is_temp" jdbcType="VARCHAR" property="isTemp" />
+  </resultMap>
+  <sql id="Base_Column_List">
+    id, username, password, salt, nick_name, cord, telephone_a, telephone_b, email, birthday, 
+    identity, level, prohibition, status, create_user, create_time, modify_user, modify_time, 
+    description, address, sex, is_temp
+  </sql>
+  
+  <select id="getUserListByIdentity" resultMap="BaseResultMap">
+  	select 
+    <include refid="Base_Column_List" />
+    from user
+    where identity = #{identity,jdbcType=VARCHAR}
+    and is_temp = '1'
+    and status = '1'
+    and prohibition = '1' 
+    order by create_time DESC
+  </select>
+  
+  <!-- 查询临时咨询的学生数量 -->
+  <select id="getCountByTemp" resultType="java.lang.Integer">
+  	select count(u.id)
+  	from user u ,student s
+  	where u.is_temp = 1
+  	and u.`id`=s.`user_id`
+  	and u.`identity` = '9'
+  	<if test="user1 != null">
+		and s.user1 = #{user1} 
+	</if>
+	<if test="user2 != null">
+		and s.user2 = #{user2} 
+	</if>
+	<if test="user3 != null">
+		and s.user3 = #{user3} 
+	</if>
+	<if test="classificationId != null">
+		and s.classification_id = #{classificationId} 
+	</if>
+	<if test="gradeId != null">
+		and s.grade_id = #{gradeId} 
+	</if>
+	<if test="channelId != null">
+		and s.channel_id = #{channelId} 
+	</if>
+	<if test="sourceId != null">
+		and s.source_id = #{sourceId} 
+	</if>
+	<if test="educationId != null">
+		and s.education_id = #{educationId} 
+	</if>
+	<if test="stiuationId != null">
+		and s.stiuation_id = #{stiuationId} 
+	</if>
+	<if test="address != null">
+		and u.address like CONCAT("%",#{address},"%")
+	</if>
+	<if test="nickName != null">
+		and u.nick_name like CONCAT("%",#{nickName},"%")
+	</if>
+  </select>
+  
+  <select id="getUserStudentVoList" resultType="com.bdqn.oa.vo.UserStudentVo">
+  	 select
+	    (select name from identity where id = u.`identity`) as identityName,
+	    (select name from level where id = u.`level`) as levelName,
+	    (select class_name from classes where id = s.`classes_id`) as classesNames,
+	    (select name from education where id = s.`education_id`) as educationName,
+	    (select name from major where id = s.`major_id`) as majorName,
+	    (select name from stiuation where id = s.`stiuation_id`) as stiuationName,
+	    (select name from classification where id = s.`classification_id`) as classificationName,
+	    (select source_name from source where id = s.`source_id`) as sourceName,
+	    (select tool_name from tool where id = s.`tool_id`) as toolName,
+	    (select channel_name from channel where id = s.`channel_id`) as channelName,
+	    (select nick_name from user where id = s.`user1`) as user1Name,
+	    (select nick_name from user where id = s.`user2`) as user2Name,
+	    (select nick_name from user where id = s.`user3`) as user3Name,
+	    (select grade_name from grade where id = s.`grade_id`) as gradeName,
+    	u.id as id, u.username as username, u.password as password, u.salt as salt, u.nick_name as nickName, u.cord as cord, 
+    	u.telephone_a as telephoneA, u.telephone_b as telephoneB, u.email as email, u.birthday as birthday,u.identity as identity, 
+    	u.level as level, u.prohibition as prohibition, u.status as status, u.create_user as createUser, u.create_time as createTime, 
+    	u.modify_user as modifyUser, u.modify_time as modifyTime, u.description as description, u.address as address, u.sex as sex, 
+    	u.is_temp as isTemp, s.age as age, s.qq as qq, s.sub_name as subName , s.search_name as searchName, s.unque_code as unqueCode, 
+    	s.is_over as isOver, s.classes_id as classesId, s.user_id as userId,s.exam_id as examId, s.education_id as educationId, 
+    	s.major_id as majorId, s.stiuation_id as stiuationId, s.classification_id as classificationId, s.source_id as sourceId, 
+    	s.tool_id as toolId, s.channel_id as channelId, s.user1 as user1, s.user2 as user2, s.user3 as user3,s.pay as pay,s.grade_id as gradeId,
+    	s.grade_msg as gradeMsg
+	from user u,student s
+	where u.`id` = s.`user_id`
+	and u.`identity` = '9'
+	and u.`is_temp` = 1
+	<if test="user1 != null">
+		and s.user1 = #{user1} 
+	</if>
+	<if test="user2 != null">
+		and s.user2 = #{user2} 
+	</if>
+	<if test="user3 != null">
+		and s.user3 = #{user3} 
+	</if>
+	<if test="classificationId != null">
+		and s.classification_id = #{classificationId} 
+	</if>
+	<if test="gradeId != null">
+		and s.grade_id = #{gradeId} 
+	</if>
+	<if test="channelId != null">
+		and s.channel_id = #{channelId} 
+	</if>
+	<if test="sourceId != null">
+		and s.source_id = #{sourceId} 
+	</if>
+	<if test="educationId != null">
+		and s.education_id = #{educationId} 
+	</if>
+	<if test="stiuationId != null">
+		and s.stiuation_id = #{stiuationId} 
+	</if>
+	<if test="address != null">
+		and u.address like CONCAT("%",#{address},"%")
+	</if>
+	<if test="nickName != null">
+		and u.nick_name like CONCAT("%",#{nickName},"%")
+	</if>
+	limit #{page,jdbcType=INTEGER},#{limit,jdbcType=INTEGER}
+  </select>
+  
+  <!-- 登录相关: 通过用户名查询用户 -->
+  <select id="findUserByUsername" resultMap="BaseResultMap">
+  	select 
+    	<include refid="Base_Column_List" />
+    from `user`
+    where status = '1'
+    and prohibition = '1'
+    and username = #{username,jdbcType=VARCHAR} 
+  </select>
+  
+  <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from user
+    where id = #{id,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
+    delete from user
+    where id = #{id,jdbcType=INTEGER}
+  </delete>
+  <insert id="insert" parameterType="com.bdqn.oa.pojo.system.user.User">
+    insert into user (id, username, password, 
+      salt, nick_name, cord, 
+      telephone_a, telephone_b, email, 
+      birthday, identity, level, 
+      prohibition, status, create_user, 
+      create_time, modify_user, modify_time, 
+      description, address, sex, 
+      is_temp)
+    values (#{id,jdbcType=INTEGER}, #{username,jdbcType=VARCHAR}, #{password,jdbcType=VARCHAR}, 
+      #{salt,jdbcType=VARCHAR}, #{nickName,jdbcType=VARCHAR}, #{cord,jdbcType=VARCHAR}, 
+      #{telephoneA,jdbcType=VARCHAR}, #{telephoneB,jdbcType=VARCHAR}, #{email,jdbcType=VARCHAR}, 
+      #{birthday,jdbcType=TIMESTAMP}, #{identity,jdbcType=VARCHAR}, #{level,jdbcType=VARCHAR}, 
+      #{prohibition,jdbcType=VARCHAR}, #{status,jdbcType=VARCHAR}, #{createUser,jdbcType=VARCHAR}, 
+      #{createTime,jdbcType=TIMESTAMP}, #{modifyUser,jdbcType=VARCHAR}, #{modifyTime,jdbcType=TIMESTAMP}, 
+      #{description,jdbcType=VARCHAR}, #{address,jdbcType=VARCHAR}, #{sex,jdbcType=VARCHAR}, 
+      #{isTemp,jdbcType=VARCHAR})
+  </insert>
+  <insert id="insertSelective" parameterType="com.bdqn.oa.pojo.system.user.User">
+    insert into user
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="id != null">
+        id,
+      </if>
+      <if test="username != null">
+        username,
+      </if>
+      <if test="password != null">
+        password,
+      </if>
+      <if test="salt != null">
+        salt,
+      </if>
+      <if test="nickName != null">
+        nick_name,
+      </if>
+      <if test="cord != null">
+        cord,
+      </if>
+      <if test="telephoneA != null">
+        telephone_a,
+      </if>
+      <if test="telephoneB != null">
+        telephone_b,
+      </if>
+      <if test="email != null">
+        email,
+      </if>
+      <if test="birthday != null">
+        birthday,
+      </if>
+      <if test="identity != null">
+        identity,
+      </if>
+      <if test="level != null">
+        level,
+      </if>
+      <if test="prohibition != null">
+        prohibition,
+      </if>
+      <if test="status != null">
+        status,
+      </if>
+      <if test="createUser != null">
+        create_user,
+      </if>
+      <if test="createTime != null">
+        create_time,
+      </if>
+      <if test="modifyUser != null">
+        modify_user,
+      </if>
+      <if test="modifyTime != null">
+        modify_time,
+      </if>
+      <if test="description != null">
+        description,
+      </if>
+      <if test="address != null">
+        address,
+      </if>
+      <if test="sex != null">
+        sex,
+      </if>
+      <if test="isTemp != null">
+        is_temp,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="id != null">
+        #{id,jdbcType=INTEGER},
+      </if>
+      <if test="username != null">
+        #{username,jdbcType=VARCHAR},
+      </if>
+      <if test="password != null">
+        #{password,jdbcType=VARCHAR},
+      </if>
+      <if test="salt != null">
+        #{salt,jdbcType=VARCHAR},
+      </if>
+      <if test="nickName != null">
+        #{nickName,jdbcType=VARCHAR},
+      </if>
+      <if test="cord != null">
+        #{cord,jdbcType=VARCHAR},
+      </if>
+      <if test="telephoneA != null">
+        #{telephoneA,jdbcType=VARCHAR},
+      </if>
+      <if test="telephoneB != null">
+        #{telephoneB,jdbcType=VARCHAR},
+      </if>
+      <if test="email != null">
+        #{email,jdbcType=VARCHAR},
+      </if>
+      <if test="birthday != null">
+        #{birthday,jdbcType=TIMESTAMP},
+      </if>
+      <if test="identity != null">
+        #{identity,jdbcType=VARCHAR},
+      </if>
+      <if test="level != null">
+        #{level,jdbcType=VARCHAR},
+      </if>
+      <if test="prohibition != null">
+        #{prohibition,jdbcType=VARCHAR},
+      </if>
+      <if test="status != null">
+        #{status,jdbcType=VARCHAR},
+      </if>
+      <if test="createUser != null">
+        #{createUser,jdbcType=VARCHAR},
+      </if>
+      <if test="createTime != null">
+        #{createTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="modifyUser != null">
+        #{modifyUser,jdbcType=VARCHAR},
+      </if>
+      <if test="modifyTime != null">
+        #{modifyTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="description != null">
+        #{description,jdbcType=VARCHAR},
+      </if>
+      <if test="address != null">
+        #{address,jdbcType=VARCHAR},
+      </if>
+      <if test="sex != null">
+        #{sex,jdbcType=VARCHAR},
+      </if>
+      <if test="isTemp != null">
+        #{isTemp,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.bdqn.oa.pojo.system.user.User">
+    update user
+    <set>
+      <if test="username != null">
+        username = #{username,jdbcType=VARCHAR},
+      </if>
+      <if test="password != null">
+        password = #{password,jdbcType=VARCHAR},
+      </if>
+      <if test="salt != null">
+        salt = #{salt,jdbcType=VARCHAR},
+      </if>
+      <if test="nickName != null">
+        nick_name = #{nickName,jdbcType=VARCHAR},
+      </if>
+      <if test="cord != null">
+        cord = #{cord,jdbcType=VARCHAR},
+      </if>
+      <if test="telephoneA != null">
+        telephone_a = #{telephoneA,jdbcType=VARCHAR},
+      </if>
+      <if test="telephoneB != null">
+        telephone_b = #{telephoneB,jdbcType=VARCHAR},
+      </if>
+      <if test="email != null">
+        email = #{email,jdbcType=VARCHAR},
+      </if>
+      <if test="birthday != null">
+        birthday = #{birthday,jdbcType=TIMESTAMP},
+      </if>
+      <if test="identity != null">
+        identity = #{identity,jdbcType=VARCHAR},
+      </if>
+      <if test="level != null">
+        level = #{level,jdbcType=VARCHAR},
+      </if>
+      <if test="prohibition != null">
+        prohibition = #{prohibition,jdbcType=VARCHAR},
+      </if>
+      <if test="status != null">
+        status = #{status,jdbcType=VARCHAR},
+      </if>
+      <if test="createUser != null">
+        create_user = #{createUser,jdbcType=VARCHAR},
+      </if>
+      <if test="createTime != null">
+        create_time = #{createTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="modifyUser != null">
+        modify_user = #{modifyUser,jdbcType=VARCHAR},
+      </if>
+      <if test="modifyTime != null">
+        modify_time = #{modifyTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="description != null">
+        description = #{description,jdbcType=VARCHAR},
+      </if>
+      <if test="address != null">
+        address = #{address,jdbcType=VARCHAR},
+      </if>
+      <if test="sex != null">
+        sex = #{sex,jdbcType=VARCHAR},
+      </if>
+      <if test="isTemp != null">
+        is_temp = #{isTemp,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.bdqn.oa.pojo.system.user.User">
+    update user
+    set username = #{username,jdbcType=VARCHAR},
+      password = #{password,jdbcType=VARCHAR},
+      salt = #{salt,jdbcType=VARCHAR},
+      nick_name = #{nickName,jdbcType=VARCHAR},
+      cord = #{cord,jdbcType=VARCHAR},
+      telephone_a = #{telephoneA,jdbcType=VARCHAR},
+      telephone_b = #{telephoneB,jdbcType=VARCHAR},
+      email = #{email,jdbcType=VARCHAR},
+      birthday = #{birthday,jdbcType=TIMESTAMP},
+      identity = #{identity,jdbcType=VARCHAR},
+      level = #{level,jdbcType=VARCHAR},
+      prohibition = #{prohibition,jdbcType=VARCHAR},
+      status = #{status,jdbcType=VARCHAR},
+      create_user = #{createUser,jdbcType=VARCHAR},
+      create_time = #{createTime,jdbcType=TIMESTAMP},
+      modify_user = #{modifyUser,jdbcType=VARCHAR},
+      modify_time = #{modifyTime,jdbcType=TIMESTAMP},
+      description = #{description,jdbcType=VARCHAR},
+      address = #{address,jdbcType=VARCHAR},
+      sex = #{sex,jdbcType=VARCHAR},
+      is_temp = #{isTemp,jdbcType=VARCHAR}
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+</mapper>
